@@ -1,0 +1,5 @@
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Nand512Library\Nand512Library\bin\Release\Nand512Library.dll
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Nand512Library\Nand512Library\bin\Release\Nand512Library.pdb
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Nand512Library\Nand512Library\obj\Release\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Nand512Library\Nand512Library\obj\Release\Nand512Library.dll
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Nand512Library\Nand512Library\obj\Release\Nand512Library.pdb
