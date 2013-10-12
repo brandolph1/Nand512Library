@@ -55,7 +55,7 @@ namespace WelchAllyn.Nand512Library
         }
     }
     /// <summary>
-    /// 
+    /// This class provides the basic memory areas of a page within a NAND flash device.
     /// </summary>
     public class CPageData : CNand512
     {
@@ -90,7 +90,7 @@ namespace WelchAllyn.Nand512Library
         }
     }
     /// <summary>
-    /// This class defines one page and one spare area of memory
+    /// This class provides the operations on a page of memory.
     /// </summary>
     public class CPage : CNand512
     {
@@ -103,7 +103,7 @@ namespace WelchAllyn.Nand512Library
         /// </summary>
         public CPage()
         {
-            _page_data = new CPageData();
+            //_page_data = new CPageData();
             Erase();
         }
         /// <summary>
@@ -125,9 +125,9 @@ namespace WelchAllyn.Nand512Library
         {
             byte[] sp = _page_data.Spare;
 
-            for (int i = 0; i < BytesPerSpare; i++)
+            for (int ii = 0; ii < BytesPerSpare; ii++)
             {
-                sp[i] = 0xFF;
+                sp[ii] = 0xFF;
             }
         }
         /// <summary>
@@ -139,11 +139,11 @@ namespace WelchAllyn.Nand512Library
             EraseSpare();
         }
         /// <summary>
-        /// Fill the page with data
+        /// Fill the main area with data
         /// </summary>
         /// <param name="src">
-        /// A byte array filled with data to store in the page.
-        /// The length of the source array must be the same as the page size.
+        /// A byte array filled with data to store in the page's main area.
+        /// The length of the source array must be the same as the main area size.
         /// </param>
         /// <returns>
         /// True if the copy is successful, false otherwise.
@@ -164,7 +164,7 @@ namespace WelchAllyn.Nand512Library
         /// Fill the spare area with data
         /// </summary>
         /// <param name="src">
-        /// A byte array filled with data to store in the spare area.
+        /// A byte array filled with data to store in the page's spare area.
         /// The length of the source array must be the same as the spare area size.
         /// </param>
         /// <returns>
@@ -182,11 +182,24 @@ namespace WelchAllyn.Nand512Library
 
             return bRv;
         }
+        
+        internal bool Fill(byte[] src)
+        {
+        	bool bRv = false;
+        	
+        	if (src.Length == (BytesPerPage + {BytesPerSpare))
+        	{
+        		// more to do...
+        		bRv = true;
+        	}
+        	
+        	return bRv;
+        }
         /// <summary>
         /// Return the page data
         /// </summary>
         /// <returns>
-        /// A byte array filled with data from page area
+        /// A byte array reference to the main area of the page
         /// </returns>
         internal byte[] GetMain()
         {
@@ -198,7 +211,7 @@ namespace WelchAllyn.Nand512Library
         /// Return the spare area data
         /// </summary>
         /// <returns>
-        /// A byte array filled with data from spare area
+        /// A byte array reference to the spare area of the page
         /// </returns>
         internal byte[] GetSpare()
         {
