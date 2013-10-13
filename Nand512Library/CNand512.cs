@@ -103,20 +103,28 @@ namespace WelchAllyn.Nand512Library
         /// </summary>
         public CPage()
         {
-            //_page_data = new CPageData();
+            _page_data = new CPageData();
             Erase();
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        private void _erase(byte[] data)
+        {
+            for (int ii = 0; ii < data.Length; ++ii)
+            {
+                data[ii] = 0xFF;
+            }
         }
         /// <summary>
         /// Erase the page
         /// </summary>
-        internal void ErasePage()
+        internal void EraseMain()
         {
             byte[] pg = _page_data.Main;
 
-            for (int ii = 0; ii < BytesPerPage; ++ii)
-            {
-                pg[ii] = 0xFF;
-            }
+            _erase(pg);
         }
         /// <summary>
         /// Erase the spare area
@@ -125,17 +133,14 @@ namespace WelchAllyn.Nand512Library
         {
             byte[] sp = _page_data.Spare;
 
-            for (int ii = 0; ii < BytesPerSpare; ii++)
-            {
-                sp[ii] = 0xFF;
-            }
+            _erase(sp);
         }
         /// <summary>
         /// Erase the page and spare area
         /// </summary>
         internal void Erase()
         {
-            ErasePage();
+            EraseMain();
             EraseSpare();
         }
         /// <summary>
@@ -182,15 +187,19 @@ namespace WelchAllyn.Nand512Library
 
             return bRv;
         }
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="src"></param>
+        /// <returns></returns>
         internal bool Fill(byte[] src)
         {
         	bool bRv = false;
         	
-        	if (src.Length == (BytesPerPage + {BytesPerSpare))
+        	if (src.Length == (BytesPerPage + BytesPerSpare))
         	{
         		// more to do...
-        		bRv = true;
+        		//bRv = true;
         	}
         	
         	return bRv;
@@ -201,11 +210,9 @@ namespace WelchAllyn.Nand512Library
         /// <returns>
         /// A byte array reference to the main area of the page
         /// </returns>
-        internal byte[] GetMain()
+        internal byte[] Main
         {
-            byte[] dest = _page_data.Main;
-
-            return dest;
+            get { return _page_data.Main; }
         }
         /// <summary>
         /// Return the spare area data
@@ -213,11 +220,9 @@ namespace WelchAllyn.Nand512Library
         /// <returns>
         /// A byte array reference to the spare area of the page
         /// </returns>
-        internal byte[] GetSpare()
+        internal byte[] Spare
         {
-            byte[] dest = _page_data.Spare;
-
-            return dest;
+            get { return _page_data.Spare; }
         }
     }
     /// <summary>
@@ -285,11 +290,10 @@ namespace WelchAllyn.Nand512Library
                     if (dest_spare.Length == BytesPerSpare)
                     {
                         CPage p = (CPage) _pages[index];
-                        byte[] page_data = p.GetMain();
-                        byte[] spare_data = p.GetSpare();
-
-                        page_data.CopyTo(dest_page, 0);
-                        spare_data.CopyTo(dest_spare, 0);
+                        
+                        p.Main.CopyTo(dest_page, 0);
+                        p.Spare.CopyTo(dest_spare, 0);
+                        bRv = true;
                     }
                 }
             }

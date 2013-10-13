@@ -38,7 +38,7 @@ namespace WelchAllyn.Nand512Library.Test
                 Array.Clear(block, 0, (int) nand.BlockLength);
             }
 
-                Console.WriteLine("Done.");
+            Console.WriteLine("Done.");
         }
     }
 }
