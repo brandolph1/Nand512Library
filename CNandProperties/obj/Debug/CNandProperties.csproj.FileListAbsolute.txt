@@ -1,0 +1,5 @@
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Nand512Library\CNandProperties\bin\Debug\CNandProperties.dll
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Nand512Library\CNandProperties\bin\Debug\CNandProperties.pdb
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Nand512Library\CNandProperties\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Nand512Library\CNandProperties\obj\Debug\CNandProperties.dll
+C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Nand512Library\CNandProperties\obj\Debug\CNandProperties.pdb

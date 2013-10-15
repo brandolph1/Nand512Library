@@ -37,8 +37,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CNand512.cs" />
+    <Compile Include="CNand512Lib.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CNandProperties\CNandProperties.csproj">
+      <Project>{19D0B141-AFE2-4521-8107-51F6E15EE577}</Project>
+      <Name>CNandProperties</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NandPageLibrary_cppcli\NandPageLibrary_cppcli.vcproj">
+      <Project>{A10CBBAB-D51A-4288-94FE-E5F83BCF8B08}</Project>
+      <Name>NandPageLibrary_cppcli</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
