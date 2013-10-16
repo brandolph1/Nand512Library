@@ -1,0 +1,35 @@
+Assembly NandPageLibrary_cppcli, Version=1.0.*, Culture=Invariant Language (Invariant Country): 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly CNandProperties_cppcli, Version=1.0.*, Culture=Invariant Language (Invariant Country): 
+	hash=SHA1, flags=None
+Assembly Microsoft.VisualC, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=SHA1, flags=None
+Class WelchAllyn.NandPageLibrary.CPageData: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :WelchAllyn.CNandProperties.CNand512
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Byte[] Spare 'get set' : 
+    Byte[] Main 'get set' : 
+  Methods:
+    get_Main(): PrivateScope, Public, HideBySig, SpecialName
+    set_Main(Byte[]): PrivateScope, Public, HideBySig, SpecialName
+    get_Spare(): PrivateScope, Public, HideBySig, SpecialName
+    set_Spare(Byte[]): PrivateScope, Public, HideBySig, SpecialName
+Class WelchAllyn.NandPageLibrary.CPage: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :WelchAllyn.CNandProperties.CNand512
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Properties:
+    Byte[] Spare 'get set' : 
+    Byte[] Main 'get set' : 
+  Methods:
+    EraseMain(): PrivateScope, Public, HideBySig
+    EraseSpare(): PrivateScope, Public, HideBySig
+    Erase(): PrivateScope, Public, HideBySig
+    get_Main(): PrivateScope, Public, HideBySig, SpecialName
+    set_Main(Byte[]): PrivateScope, Public, HideBySig, SpecialName
+    get_Spare(): PrivateScope, Public, HideBySig, SpecialName
+    set_Spare(Byte[]): PrivateScope, Public, HideBySig, SpecialName

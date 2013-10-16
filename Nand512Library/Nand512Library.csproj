@@ -45,9 +45,9 @@
       <Project>{19D0B141-AFE2-4521-8107-51F6E15EE577}</Project>
       <Name>CNandProperties</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NandPageLibrary_cppcli\NandPageLibrary_cppcli.vcproj">
-      <Project>{A10CBBAB-D51A-4288-94FE-E5F83BCF8B08}</Project>
-      <Name>NandPageLibrary_cppcli</Name>
+    <ProjectReference Include="..\NandPageLibrary\NandPageLibrary.csproj">
+      <Project>{465ED8B9-9429-4645-A8FB-C1647D7CBDD9}</Project>
+      <Name>NandPageLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

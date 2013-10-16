@@ -1,13 +1,15 @@
 ﻿//
-//#define TEST_CDEVICE
-#define TEST_CPAGE
+#define TEST_CDEVICE
+//#define TEST_CPAGE
 //
 using System;
-using System.Text;
-using WelchAllyn.Nand512Library;
-using WelchAllyn.NandPageLibrary;
+
 #if TEST_CPAGE
 using WelchAllyn.CNandProperties;
+#endif
+using WelchAllyn.NandPageLibrary;
+#if TEST_DEVICE
+using WelchAllyn.Nand512Library;
 #endif
 
 namespace WelchAllyn.Nand512Library.Test
@@ -19,7 +21,37 @@ namespace WelchAllyn.Nand512Library.Test
 #endif
 #if TEST_CPAGE
         static CPage page;
+        static CBlock block;
 #endif
+        static bool Compare(byte[] left, byte[] right)
+        {
+            bool bRv = false;
+
+            if (left.Length == right.Length)
+            {
+                bRv = true;
+
+                for (int ii = 0; ii < left.Length; ++ii)
+                {
+                    if (left[ii] != right[ii])
+                    {
+                        bRv = false;
+                        break;
+                    }
+                }
+            }
+
+            return bRv;
+        }
+        
+        static void Clear(ref byte[] dest)
+        {
+            for (int ii = 0; ii < dest.Length; ++ii)
+            {
+                dest[ii] = 0;
+            }
+        }
+
         static void Main(string[] args)
         {
 #if TEST_CPAGE
@@ -30,7 +62,7 @@ namespace WelchAllyn.Nand512Library.Test
 
             for (int nn = 0; nn < properties.BytesPerPage; ++nn)
             {
-                main_data[nn] = (byte)(nn);
+                main_data[nn] = (byte)(nn+1);
             }
 
             for (int nn = 0; nn < properties.BytesPerSpare; ++nn)
@@ -45,6 +77,42 @@ namespace WelchAllyn.Nand512Library.Test
                 page = new CPage();
                 page.Main = main_data;
                 page.Spare = spare_data;
+            }
+
+            int blocks_per_device = (int)properties.BlocksPerDevice;
+            int pages_per_block = (int)properties.PagesPerBlock;
+            byte[] dev_main_data = new byte[properties.BytesPerPage];
+            byte[] dev_spare_data = new byte[properties.BytesPerSpare];
+
+            for (int kk = 0; kk < blocks_per_device; ++kk)
+            {
+                block = new CBlock();
+
+                for (int nn = 0; nn < pages_per_block; ++nn)
+                {
+                    block.FillPage(nn, main_data, spare_data);
+                }
+
+                for (int nn = 0; nn < pages_per_block; ++nn)
+                {
+                    block.GetPage(nn, dev_main_data, dev_spare_data);
+
+                    if (!Compare(main_data, dev_main_data))
+                    {
+                        Console.WriteLine("Comparison failed in block allocation {0}, page #{1}", kk, nn);
+                    }
+
+                    if (!Compare(dev_spare_data, spare_data))
+                    {
+                        Console.WriteLine("Comparison failed in block allocation {0}, spare #{1}", kk, nn);
+                    }
+
+                    Clear(ref dev_main_data);
+                    Clear(ref dev_spare_data);
+                }
+
+                block.Erase();
+                block = null;
             }
 #endif
 #if TEST_CDEVICE

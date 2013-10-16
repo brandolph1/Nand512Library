@@ -1,16 +1,20 @@
-Assembly CNandProperties, Version=1.0.*, Culture=Invariant Language (Invariant Country): 
+Assembly CNandProperties_cppcli, Version=1.0.*, Culture=Invariant Language (Invariant Country): 
 	hash=SHA1, flags=PublicKey
 Assembly mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=SHA1, flags=None
+Assembly Microsoft.VisualC, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
 	hash=SHA1, flags=None
 Class WelchAllyn.CNandProperties.CNand512: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Properties:
-    Int64 BlocksPerDevice 'get ' : 
-    Int64 PagesPerBlock 'get ' : 
-    Int64 BytesPerPage 'get ' : 
-    Int64 BytesPerSpare 'get ' : 
-    Int64 BytesPerBlock 'get ' : 
-    Int64 FactoryBadBlockMarkerLoc 'get ' : 
+    Int32 FactoryBadBlockMarkerLoc 'get ' IsLong : 
+    Int32 BytesPerBlock 'get ' IsLong : 
+    Int32 BytesPerSpare 'get ' IsLong : 
+    Int32 BytesPerPage 'get ' IsLong : 
+    Int32 PagesPerBlock 'get ' IsLong : 
+    Int32 BlocksPerDevice 'get ' IsLong : 
   Methods:
     get_BlocksPerDevice(): PrivateScope, Public, HideBySig, SpecialName
     get_PagesPerBlock(): PrivateScope, Public, HideBySig, SpecialName

@@ -1,0 +1,5 @@
+// stdafx.cpp : source file that includes just the standard includes
+// Nand512Library_cppcli.pch will be the pre-compiled header
+// stdafx.obj will contain the pre-compiled type information
+
+#include "stdafx.h"

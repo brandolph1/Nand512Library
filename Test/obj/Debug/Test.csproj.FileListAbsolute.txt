@@ -9,3 +9,4 @@ C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects
 C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Nand512Library\Test\obj\Debug\ResolveAssemblyReference.cache
 C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Nand512Library\Test\obj\Debug\Test.exe
 C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Nand512Library\Test\obj\Debug\Test.pdb
+C:\Documents and Settings\XPMUser\My Documents\GitHub\Nand512Library\Test\obj\Debug\ResolveAssemblyReference.cache

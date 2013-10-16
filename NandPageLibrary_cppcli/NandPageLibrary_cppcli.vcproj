@@ -165,8 +165,8 @@
 			MinFrameworkVersion="131072"
 		/>
 		<ProjectReference
-			ReferencedProjectIdentifier="{19D0B141-AFE2-4521-8107-51F6E15EE577}"
-			RelativePathToProject=".\CNandProperties\CNandProperties.csproj"
+			ReferencedProjectIdentifier="{5AACAECC-D676-432D-B37E-5E48C2B7F751}"
+			RelativePathToProject=".\CNandProperties_cppcli\CNandProperties_cppcli.vcproj"
 		/>
 	</References>
 	<Files>

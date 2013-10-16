@@ -5,3 +5,10 @@ C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects
 C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Nand512Library\NandPageLibrary\obj\Debug\ResolveAssemblyReference.cache
 C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Nand512Library\NandPageLibrary\obj\Debug\NandPageLibrary.dll
 C:\Documents and Settings\Administrator\My Documents\Visual Studio 2008\Projects\Nand512Library\NandPageLibrary\obj\Debug\NandPageLibrary.pdb
+C:\Documents and Settings\XPMUser\My Documents\GitHub\Nand512Library\NandPageLibrary\bin\Debug\NandPageLibrary.dll
+C:\Documents and Settings\XPMUser\My Documents\GitHub\Nand512Library\NandPageLibrary\bin\Debug\NandPageLibrary.pdb
+C:\Documents and Settings\XPMUser\My Documents\GitHub\Nand512Library\NandPageLibrary\bin\Debug\CNandProperties.dll
+C:\Documents and Settings\XPMUser\My Documents\GitHub\Nand512Library\NandPageLibrary\bin\Debug\CNandProperties.pdb
+C:\Documents and Settings\XPMUser\My Documents\GitHub\Nand512Library\NandPageLibrary\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\XPMUser\My Documents\GitHub\Nand512Library\NandPageLibrary\obj\Debug\NandPageLibrary.dll
+C:\Documents and Settings\XPMUser\My Documents\GitHub\Nand512Library\NandPageLibrary\obj\Debug\NandPageLibrary.pdb

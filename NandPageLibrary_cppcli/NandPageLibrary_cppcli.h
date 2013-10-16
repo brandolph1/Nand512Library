@@ -18,29 +18,29 @@ namespace WelchAllyn
 			/// <summary>
 			/// Arrays for storage
 			/// </summary>
-			array<System::Byte>^ _page;
-			array<System::Byte>^ _spare;
+			array<Byte>^ _page;
+			array<Byte>^ _spare;
 		public:
 			CPageData()
 			{
-				_page = gcnew array<System::Byte>(static_cast<int>(BytesPerPage));
-				_spare = gcnew array<System::Byte>(static_cast<int>(BytesPerSpare));
+				_page = gcnew array<Byte>(static_cast<int>(BytesPerPage));
+				_spare = gcnew array<Byte>(static_cast<int>(BytesPerSpare));
 			}
 			///
 			///
 			///
-			property array<System::Byte>^ Main
+			property array<Byte>^ Main
 			{
-				array<System::Byte>^ get() { return _page; }
-				void set(array<System::Byte>^ newval) { newval->CopyTo(_page, 0); }
+				array<Byte>^ get() { return _page; }
+				void set(array<Byte>^ newval) { newval->CopyTo(_page, 0); }
 			}
 			///
 			///
 			///
-			property array<System::Byte>^ Spare
+			property array<Byte>^ Spare
 			{
-				array<System::Byte>^ get() { return _spare; }
-				void set(array<System::Byte>^ newval) { newval->CopyTo(_spare, 0); }
+				array<Byte>^ get() { return _spare; }
+				void set(array<Byte>^ newval) { newval->CopyTo(_spare, 0); }
 			}
 		};
 		/// <summary>
@@ -53,14 +53,14 @@ namespace WelchAllyn
 			/// Page storage
 			/// </summary>
 			CPageData^ _page_data;
+			/// <summary>
 			///
-			///
-			///
-			void _erase(array<System::Byte>^ data)
+			/// </summary>
+			void _erase(array<Byte>^ data)
 			{
 				for (int ii=0; ii< data->Length; ++ii)
 				{
-					data[ii] = 0xFF;
+					data[ii] = Byte::MaxValue;
 				}
 			}
 		public:
@@ -94,11 +94,11 @@ namespace WelchAllyn
 			///
 			///
 			///
-			property array<System::Byte>^ Main
+			property array<Byte>^ Main
 			{
-				array<System::Byte>^ get() { return _page_data->Main; }
+				array<Byte>^ get() { return _page_data->Main; }
 
-				void set(array<System::Byte>^ new_src)
+				void set(array<Byte>^ new_src)
 				{ 
 					if (new_src->Length == BytesPerPage)
 					{
@@ -113,11 +113,11 @@ namespace WelchAllyn
 			///
 			///
 			///
-			property array<System::Byte>^ Spare
+			property array<Byte>^ Spare
 			{
-				array<System::Byte>^ get() { return _page_data->Spare; }
+				array<Byte>^ get() { return _page_data->Spare; }
 
-				void set(array<System::Byte>^ new_src)
+				void set(array<Byte>^ new_src)
 				{
 					if (new_src->Length == BytesPerSpare)
 					{

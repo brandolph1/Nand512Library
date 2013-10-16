@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 using WelchAllyn.CNandProperties;
 using WelchAllyn.NandPageLibrary;
 
@@ -10,14 +9,14 @@ namespace WelchAllyn.Nand512Library
     /// </summary>
     public class CBlock : CNand512
     {
-        private Object[] _pages;
+        private CPage[] _pages;
         /// <summary>
-        /// 
+        /// Block constructor
         /// </summary>
         public CBlock()
         {
             long ppb = PagesPerBlock;
-            _pages = new Object[ppb];
+            _pages = new CPage[ppb];
 
             for (int pp = 0; pp < ppb; ++pp)
             {
@@ -41,7 +40,7 @@ namespace WelchAllyn.Nand512Library
                 {
                     if (src_spare.Length == BytesPerSpare)
                     {
-                        CPage p = (CPage) _pages[index];
+                        CPage p = _pages[index];
 
                         p.Main = src_data;
                         p.Spare = src_spare;
@@ -69,7 +68,7 @@ namespace WelchAllyn.Nand512Library
                 {
                     if (dest_spare.Length == BytesPerSpare)
                     {
-                        CPage p = (CPage) _pages[index];
+                        CPage p = _pages[index];
                         
                         p.Main.CopyTo(dest_page, 0);
                         p.Spare.CopyTo(dest_spare, 0);
@@ -81,18 +80,14 @@ namespace WelchAllyn.Nand512Library
             return bRv;
         }
         /// <summary>
-        /// 
+        /// Erase this block-full of pages
         /// </summary>
-        /// <returns></returns>
-        internal bool EraseBlock()
+        internal void Erase()
         {
-            for (int ii=0; ii<PagesPerBlock; ++ii)
+            foreach (CPage p in _pages)
             {
-                CPage p = (CPage) _pages[ii];
                 p.Erase();
             }
-
-            return true;
         }
     }
     /// <summary>
@@ -100,14 +95,14 @@ namespace WelchAllyn.Nand512Library
     /// </summary>
     public class CDevice : CNand512
     {
-        private Object[] _blocks;
+        private CBlock[] _blocks;
         /// <summary>
         /// 
         /// </summary>
         public CDevice()
         {
             long bpd = BlocksPerDevice;
-            _blocks = new Object[bpd];
+            _blocks = new CBlock[bpd];
 
             for (int bb = 0; bb < bpd; ++bb)
             {
@@ -147,7 +142,7 @@ namespace WelchAllyn.Nand512Library
                 {
                     byte[] page_copy = new byte[BytesPerPage];
                     byte[] spare_copy = new byte[BytesPerSpare];
-                    CBlock b = (CBlock) _blocks[index];
+                    CBlock b = _blocks[index];
                     long byte_index = 0;
 
                     for (long pg = 0; pg < PagesPerBlock; ++pg)
@@ -189,7 +184,7 @@ namespace WelchAllyn.Nand512Library
                 {
                     byte[] page_copy = new byte[BytesPerPage];
                     byte[] spare_copy = new byte[BytesPerSpare];
-                    CBlock b = (CBlock) _blocks[index];
+                    CBlock b = _blocks[index];
                     long byte_index = 0;
 
                     for (long pg = 0; pg < PagesPerBlock; ++pg)
@@ -226,9 +221,10 @@ namespace WelchAllyn.Nand512Library
 
             if (index < NumberOfBlocks)
             {
-                CBlock b = (CBlock) _blocks[index];
+                CBlock b = _blocks[index];
 
-                bRv = b.EraseBlock();
+                b.Erase();
+                bRv = true;
             }
 
             return bRv;

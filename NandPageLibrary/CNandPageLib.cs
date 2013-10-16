@@ -64,7 +64,7 @@ namespace WelchAllyn.NandPageLibrary
         {
             for (int ii = 0; ii < data.Length; ++ii)
             {
-                data[ii] = 0xFF;
+                data[ii] = byte.MaxValue;
             }
         }
         /// <summary>
