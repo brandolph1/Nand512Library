@@ -56,6 +56,24 @@ namespace WelchAllyn
 
 				return bRv;
 			}
+			///
+			///
+			///
+			bool FillPage(long index, CPageData^ src)
+			{
+				bool bRv = false;
+
+				if (index < PagesPerBlock)
+				{
+					CPage^ p = _pages[index];
+
+					p->Main = src->Main;
+					p->Spare = src->Spare;
+					bRv = true;
+				}
+
+				return bRv;
+			}
 			/// <summary>
 			/// 
 			/// </summary>
@@ -79,6 +97,27 @@ namespace WelchAllyn
 							p->Spare->CopyTo(dest_spare, 0);
 							bRv = true;
 						}
+					}
+				}
+
+				return bRv;
+			}
+			///
+			///
+			///
+			bool GetPage(long index, CPageData^% dest)
+			{
+				bool bRv = false;
+
+				if (index < PagesPerBlock)
+				{
+					if (dest != nullptr)
+					{
+						CPage^ p = _pages[index];
+				
+						dest->Main = p->Main;
+						dest->Spare = p->Spare;
+						bRv = true;
 					}
 				}
 
@@ -157,7 +196,7 @@ namespace WelchAllyn
 
 				return bRv;
 			}
-			bool GetBlock(long index, array<Byte>^ dest)	//!BRR: This has a problem
+			bool GetBlock(long index, array<Byte>^% dest)	// 'dest' is a tracked reference (like a C# 'ref' parameter)
 			{
 				bool bRv = false;
 

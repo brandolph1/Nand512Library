@@ -81,8 +81,8 @@ namespace WelchAllyn.Nand512Library.Test
 
             int blocks_per_device = (int)properties.BlocksPerDevice;
             int pages_per_block = (int)properties.PagesPerBlock;
-            byte[] dev_main_data = new byte[properties.BytesPerPage];
-            byte[] dev_spare_data = new byte[properties.BytesPerSpare];
+            page_data.Main = main_data;
+            page_data.Spare = spare_data;
 
             for (int kk = 0; kk < blocks_per_device; ++kk)
             {
@@ -90,25 +90,24 @@ namespace WelchAllyn.Nand512Library.Test
 
                 for (int nn = 0; nn < pages_per_block; ++nn)
                 {
-                    block.FillPage(nn, main_data, spare_data);
+                    block.FillPage(nn, page_data);
                 }
 
-                for (int nn = 0; nn < pages_per_block; ++nn)
+                page_data.Clear();
+
+                for (int mm = 0; mm < pages_per_block; ++mm)
                 {
-                    block.GetPage(nn, dev_main_data, dev_spare_data);
+                    block.GetPage(mm, ref page_data);
 
-                    if (!Compare(main_data, dev_main_data))
+                    if (!Compare(main_data, page_data.Main))
                     {
-                        Console.WriteLine("Comparison failed in block allocation {0}, page #{1}", kk, nn);
+                        Console.WriteLine("Comparison failed in block allocation {0}, page #{1}", kk, mm);
                     }
 
-                    if (!Compare(dev_spare_data, spare_data))
+                    if (!Compare(spare_data, page_data.Spare))
                     {
-                        Console.WriteLine("Comparison failed in block allocation {0}, spare #{1}", kk, nn);
+                        Console.WriteLine("Comparison failed in block allocation {0}, spare #{1}", kk, mm);
                     }
-
-                    Clear(ref dev_main_data);
-                    Clear(ref dev_spare_data);
                 }
 
                 block.Erase();

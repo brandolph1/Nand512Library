@@ -15,6 +15,7 @@ Class WelchAllyn.NandPageLibrary.CPageData: AutoLayout, AnsiClass, Class, Public
     Byte[] Spare 'get set' : 
     Byte[] Main 'get set' : 
   Methods:
+    Clear(): PrivateScope, Public, HideBySig
     get_Main(): PrivateScope, Public, HideBySig, SpecialName
     set_Main(Byte[]): PrivateScope, Public, HideBySig, SpecialName
     get_Spare(): PrivateScope, Public, HideBySig, SpecialName

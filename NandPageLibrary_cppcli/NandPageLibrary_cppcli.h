@@ -29,6 +29,14 @@ namespace WelchAllyn
 			///
 			///
 			///
+			void Clear()
+			{
+				for (int ii=0; ii<_page->Length; ++ii) _page[ii] = 0;
+				for (int jj=0; jj<_spare->Length; ++jj) _spare[jj] = 0;
+			}
+			///
+			///
+			///
 			property array<Byte>^ Main
 			{
 				array<Byte>^ get() { return _page; }
