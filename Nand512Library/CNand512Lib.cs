@@ -55,6 +55,27 @@ namespace WelchAllyn.Nand512Library
         /// 
         /// </summary>
         /// <param name="index"></param>
+        /// <param name="src"></param>
+        /// <returns></returns>
+        bool FillPage(long index, CPageData src)
+        {
+            bool bRv = false;
+
+            if (index < PagesPerBlock)
+            {
+                CPage p = _pages[index];
+
+                p.Main = src.Main;
+                p.Spare = src.Spare;
+                bRv = true;
+            }
+
+            return bRv;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="index"></param>
         /// <param name="dest_page"></param>
         /// <param name="dest_spare"></param>
         /// <returns></returns>
@@ -74,6 +95,30 @@ namespace WelchAllyn.Nand512Library
                         p.Spare.CopyTo(dest_spare, 0);
                         bRv = true;
                     }
+                }
+            }
+
+            return bRv;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="dest"></param>
+        /// <returns></returns>
+        bool Getpage(long index, ref CPageData dest)
+        {
+            bool bRv = false;
+
+            if (index < PagesPerBlock)
+            {
+                if (dest != null)
+                {
+                    CPage p = _pages[index];
+
+                    dest.Main = p.Main;
+                    dest.Spare = p.Spare;
+                    bRv = true;
                 }
             }
 

@@ -25,6 +25,14 @@ namespace WelchAllyn.NandPageLibrary
         /// <summary>
         /// 
         /// </summary>
+        void Clear()
+        {
+            for (int ii = 0; ii < _page.Length; ++ii) _page[ii] = 0;
+            for (int jj = 0; jj < _page.Length; ++jj) _spare[jj] = 0;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
         public byte[] Main
         {
             get { return _page; }

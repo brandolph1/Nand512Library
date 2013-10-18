@@ -152,14 +152,23 @@ namespace WelchAllyn
 					_blocks[bb] = gcnew CBlock();
 				}
 			}
+			///
+			///
+			///
 			property long NumberOfBlocks
 			{
 				long get() { return BlocksPerDevice; }
 			}
+			///
+			///
+			///
 			property long BlockLength
 			{
 				long get() { return BytesPerBlock; }
 			}
+			///
+			///
+			///
 			bool FillBlock(long index, array<Byte>^ src)
 			{
 				bool bRv = false;
@@ -196,6 +205,9 @@ namespace WelchAllyn
 
 				return bRv;
 			}
+			///
+			///
+			///
 			bool GetBlock(long index, array<Byte>^% dest)	// 'dest' is a tracked reference (like a C# 'ref' parameter)
 			{
 				bool bRv = false;
@@ -232,6 +244,9 @@ namespace WelchAllyn
 				
 				return bRv;
 			}
+			///
+			///
+			///
 			bool EraseBlock(long index)
 			{
 				bool bRv = false;
@@ -244,6 +259,31 @@ namespace WelchAllyn
 					bRv = true;
 				}
 				
+				return bRv;
+			}
+			///
+			///
+			///
+			bool SetBadBlock(long index)
+			{
+				bool bRv = false;
+
+				if (index < BlocksPerDevice)
+				{
+					if (EraseBlock(index))
+					{
+						array<Byte>^ page_copy = gcnew array<Byte>(BytesPerPage);
+						array<Byte>^ spare_copy = gcnew array<Byte>(BytesPerSpare);
+						CBlock^ b = (CBlock^)_blocks[index];
+
+						if (!b->GetPage(0, page_copy, spare_copy)) throw gcnew ApplicationException("Failed to get page in block");
+
+						spare_copy[FactoryBadBlockMarkerLoc - BytesPerPage] = 0x00; // Mark this block as bad
+
+						bRv = b->FillPage(0, page_copy, spare_copy);
+					}
+				}
+
 				return bRv;
 			}
 		};
