@@ -32,8 +32,8 @@ namespace WelchAllyn
 			/// 
 			/// </summary>
 			/// <param name="index"></param>
-			/// <param name="page"></param>
-			/// <param name="spare"></param>
+			/// <param name="src_data"></param>
+			/// <param name="src_spare"></param>
 			/// <returns></returns>
 			bool FillPage(long index, array<Byte>^ src_data, array<Byte>^ src_spare)
 			{
@@ -61,18 +61,7 @@ namespace WelchAllyn
 			///
 			bool FillPage(long index, CPageData^ src)
 			{
-				bool bRv = false;
-
-				if (index < PagesPerBlock)
-				{
-					CPage^ p = _pages[index];
-
-					p->Main = src->Main;
-					p->Spare = src->Spare;
-					bRv = true;
-				}
-
-				return bRv;
+				return FillPage(index, src->Main, src->Spare);
 			}
 			/// <summary>
 			/// 
@@ -102,9 +91,9 @@ namespace WelchAllyn
 
 				return bRv;
 			}
+			/// <summary>
 			///
-			///
-			///
+			/// </summary>
 			bool GetPage(long index, CPageData^% dest)
 			{
 				bool bRv = false;
@@ -131,6 +120,70 @@ namespace WelchAllyn
 				for each (CPage^ p in _pages)
 				{
 					p->Erase();
+				}
+			}
+			/// <summary>
+			/// Fill is a member of the CBlock class.
+			/// <para>Accepts a 'block-sized' array of data-bytes and parses it into the pages of this storage block.</para>
+			/// </summary>
+			/// <param name="src">A reference to the source array of data-bytes.</param>
+			void Fill(array<Byte>^ src)
+			{
+				Fill(src, 0);
+			}
+			/// <summary>
+			/// Fill is a member of the CBlock class.
+			/// <para>Accepts a 'block-sized' array of data-bytes and parses it into the pages of this storage block.</para>
+			/// </summary>
+			/// <param name="src">A reference to the source array of data-bytes.</param>
+			/// <param name="start">The index to the first byte in the array.</param>
+			void Fill(array<Byte>^ src, long start)
+			{
+				Fill(src, start, src->Length);
+			}
+			/// <summary>
+			/// Fill is a member of the CBlock class.
+			/// <para>Accepts a 'block-sized' array of data-bytes and parses it into the pages of this storage block.</para>
+			/// </summary>
+			/// <param name="src">A reference to the source array of data-bytes.</param>
+			/// <param name="start">The index to the first byte in the array.</param>
+			/// <param name="length">The number of bytes available in the array.</param>
+			void Fill(array<Byte>^ src, long start, long length)
+			{
+				int src_index = static_cast<int>(start);
+				int xxLen = 0;
+
+				for each (CPage^ p in _pages)
+				{
+					if (src_index < length)
+					{
+						if (src_index < (length - BytesPerPage))
+						{
+							xxLen = BytesPerPage;
+						}
+						else
+						{
+							xxLen = length - src_index;
+						}
+
+						Array::Copy(src, src_index, p->Main, 0, xxLen);
+						src_index += BytesPerPage;
+
+						if (src_index < length)
+						{
+							if (src_index < (length - BytesPerSpare))
+							{
+								xxLen = BytesPerSpare;
+							}
+							else
+							{
+								xxLen = length - src_index;
+							}
+
+							Array::Copy(src, src_index, p->Spare, 0, xxLen);
+							src_index += BytesPerSpare;
+						}
+					}
 				}
 			}
 		};
@@ -166,41 +219,59 @@ namespace WelchAllyn
 			{
 				long get() { return BytesPerBlock; }
 			}
-			///
-			///
-			///
+			/// <summary>
+			/// FillBlock is a member of the CDevice class.
+			/// <para>Accepts a 'block-sized' array of data-bytes to store in the specified block.</para>
+			/// </summary>
 			bool FillBlock(long index, array<Byte>^ src)
 			{
 				bool bRv = false;
 
-				if (index < BlocksPerDevice)
+				if (index < NumberOfBlocks)
 				{
-					if (src->Length == BytesPerBlock)
+					if (src->Length == BlockLength)
 					{
-						array<Byte>^ page_copy = gcnew array<Byte>(BytesPerPage);
-						array<Byte>^ spare_copy = gcnew array<Byte>(BytesPerSpare);
 						CBlock^ b = _blocks[index];
-						long byte_index = 0;
 
-						for (long pg = 0; pg < PagesPerBlock; ++pg)
-						{
-							for (int ii = 0; ii < BytesPerPage; ++ii)
-							{
-								page_copy[ii] = src[byte_index];
-								++byte_index;
-							}
-
-							for (int ii = 0; ii < BytesPerSpare; ++ii)
-							{
-								spare_copy[ii] = src[ii];
-								++byte_index;
-							}
-
-							b->FillPage(pg, page_copy, spare_copy);
-						}
-
+						b->Fill(src);
 						bRv = true;
 					}
+				}
+
+				return bRv;
+			}
+			/// <summary>
+			/// FillBlock is a member of the CDevice class.
+			/// <para>Accepts a 'block-sized' array of data-bytes to store in the specified block.</para>
+			/// </summary>
+			bool FillBlock(long index, array<Byte>^ src, long start)
+			{
+				bool bRv = false;
+
+				if (index < NumberOfBlocks)
+				{
+					CBlock^ b = _blocks[index];
+
+					b->Fill(src, start);
+					bRv = true;
+				}
+
+				return bRv;
+			}
+			/// <summary>
+			/// FillBlock is a member of the CDevice class.
+			/// <para>Accepts a 'block-sized' array of data-bytes to store in the specified block.</para>
+			/// </summary>
+			bool FillBlock(long index, array<Byte>^ src, long start, long length)
+			{
+				bool bRv = false;
+
+				if (index < NumberOfBlocks)
+				{
+					CBlock^ b = _blocks[index];
+
+					b->Fill(src, start, length);
+					bRv = true;
 				}
 
 				return bRv;

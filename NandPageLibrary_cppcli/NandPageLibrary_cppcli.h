@@ -31,8 +31,8 @@ namespace WelchAllyn
 			///
 			void Clear()
 			{
-				for (int ii=0; ii<_page->Length; ++ii) _page[ii] = 0;
-				for (int jj=0; jj<_spare->Length; ++jj) _spare[jj] = 0;
+				Array::Clear(_page, 0, _page->Length);
+				Array::Clear(_spare, 0, _spare->Length);
 			}
 			///
 			///
